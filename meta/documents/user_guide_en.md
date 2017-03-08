@@ -11,7 +11,7 @@ The affiliate network belboon specialises in the implementation of performance m
 
 To use this format, you need the Elastic Export plugin.
 
-Follow the instructions given on the [Exporting data](https://www.plentymarkets.co.uk/manual/data-exchange/exporting-data/#4) page of the manual.
+Follow the instructions given on the [Exporting data](https://www.plentymarkets.co.uk/manual/data-exchange/exporting-data/#4) page of the manual to set up the data format BelboonDE-Plugin in plentymarkets.
 
 ## License
 
