@@ -1,5 +1,5 @@
 
-# ElasticExportBelboonDE plugin user guide
+# Elastic Export ElasticExportBelboonDE Plugin user guide
 
 <div class="container-toc"></div>
 
@@ -11,8 +11,8 @@ The affiliate network belboon specialises in the implementation of performance m
 
 To use this format, you need the Elastic Export plugin.
 
-Follow the instructions given on the [Exporting data](https://www.plentymarkets.co.uk/manual/data-exchange/exporting-data/#4) page of the manual to set up the format BelboonDE-Plugin in plentymarkets.
+Follow the instructions given on the [Exporting data](https://www.plentymarkets.co.uk/manual/data-exchange/exporting-data/#4) page of the manual.
 
 ## License
 
-This project is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE.- find further information in the [LICENSE.md](https://github.com/plentymarkets/plugin-elastic-export-twenga-com/blob/master/LICENSE.md).
+This project is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE.- find further information in the [LICENSE.md](https://github.com/plentymarkets/plugin-elastic-export-belboon-de/blob/master/LICENSE.md).
