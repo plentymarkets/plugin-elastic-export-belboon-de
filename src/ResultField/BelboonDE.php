@@ -3,13 +3,15 @@
 namespace ElasticExportBelboonDE\ResultField;
 
 use Plenty\Modules\DataExchange\Contracts\ResultFields;
-use Plenty\Modules\DataExchange\Models\FormatSetting;
 use Plenty\Modules\Helper\Services\ArrayHelper;
 use Plenty\Modules\Item\Search\Mutators\ImageMutator;
 use Plenty\Modules\Cloud\ElasticSearch\Lib\Source\Mutator\BuiltIn\LanguageMutator;
 
 
-
+/**
+ * Class BelboonDE
+ * @package ElasticExportBelboonDE\ResultField
+ */
 class BelboonDE extends ResultFields
 {
     /**
@@ -18,6 +20,11 @@ class BelboonDE extends ResultFields
     private $arrayHelper;
 
 
+    /**
+     * BelboonDE constructor.
+     *
+     * @param ArrayHelper $arrayHelper
+     */
     public function __construct(ArrayHelper $arrayHelper)
     {
         $this->arrayHelper = $arrayHelper;
@@ -25,7 +32,8 @@ class BelboonDE extends ResultFields
 
     /**
      * Creates the fields set to be retrieved from ElasticSearch.
-     * @param  array $formatSettings = []
+     *
+     * @param array $formatSettings
      * @return array
      */
     public function generateResultFields(array $formatSettings = []):array
@@ -84,50 +92,38 @@ class BelboonDE extends ResultFields
                 //variation
                 'id',
                 'variation.availability.id',
-                'variation.stockLimitation',
-                'variation.model',
-                'variation.vatId',
-
 
                 //images
                 'images.item.type',
                 'images.item.path',
-                'images.item.position',
                 'images.item.fileType',
-                'images.item.cleanImageName',
-                'images.item.names.imageId',
 
                 'images.variation.type',
                 'images.variation.path',
-                'images.variation.position',
                 'images.variation.fileType',
-                'images.variation.cleanImageName',
-                'images.variation.names.imageId',
 
                 //unit
-                'unit.content',
                 'unit.id',
+                'unit.content',
 
                 //defaultCategories
                 'defaultCategories.id',
 
                 //barcodes
-                'barcodes.id',
                 'barcodes.code',
                 'barcodes.type',
-
-                //attributes
-                'attributes.attributeValueSetId',
-                'attributes.attributeId',
-                'attributes.valueId',
-
             ],
 
             [
-                $imageMutator,
                 $languageMutator,
             ],
         ];
+
+        // Get the associated images if reference is selected
+        if($reference != -1)
+        {
+            $fields[1][] = $imageMutator;
+        }
 
         foreach($itemDescriptionFields as $itemDescriptionField)
         {

@@ -7,9 +7,13 @@ use Plenty\Modules\DataExchange\Contracts\CSVPluginGenerator;
 use Plenty\Modules\Helper\Services\ArrayHelper;
 use Plenty\Modules\Item\DataLayer\Models\Record;
 use Plenty\Modules\Item\DataLayer\Models\RecordList;
-use Plenty\Modules\Helper\Contracts\UrlBuilderRepositoryContract;
 use Plenty\Modules\Helper\Models\KeyValue;
 
+
+/**
+ * Class BelboonDE
+ * @package ElasticExportBelboonDE\Generator
+ */
 class BelboonDE extends CSVPluginGenerator
 {
     const DELIMITER = ';';
@@ -32,8 +36,10 @@ class BelboonDE extends CSVPluginGenerator
      */
     private $idlVariations = array();
 
+
     /**
      * BelboonDE constructor.
+     *
      * @param ArrayHelper $arrayHelper
      */
     public function __construct( ArrayHelper $arrayHelper)
@@ -42,12 +48,14 @@ class BelboonDE extends CSVPluginGenerator
     }
 
     /**
-     * @param RecordList $resultData
+     * Generates and populates the data into the CSV file.
+     *
+     * @param array $resultData
      * @param array $formatSettings
+     * @param array $filter
      */
     protected function generatePluginContent( $resultData, array $formatSettings = [], array $filter = [])
     {
-
         $this->elasticExportCoreHelper = pluginApp(ElasticExportCoreHelper::class);
 
         if(is_array($resultData) && count($resultData['documents']) > 0)
@@ -104,10 +112,12 @@ class BelboonDE extends CSVPluginGenerator
 
             foreach($resultData['documents'] as $variation)
             {
+                // Get preview and large image information
                 $previewImageInformation = $this->getImageInformation($variation, $settings, 'preview');
                 $largeImageInformation = $this->getImageInformation($variation, $settings, 'normal');
-                $shipping = $this->elasticExportCoreHelper->getShippingCost($variation['data']['item']['id'], $settings);
 
+                // Get shipping costs
+                $shipping = $this->elasticExportCoreHelper->getShippingCost($variation['data']['item']['id'], $settings);
                 if(!is_null($shipping))
                 {
                     $shipping = number_format((float)$shipping, 2, ',', '');
@@ -118,8 +128,8 @@ class BelboonDE extends CSVPluginGenerator
                 }
 
                 $data = [
-                    'Merchant_ProductNumber'      => $variation['data']['item']['id'],
-                    'EAN_Code'                    => $variation['data']['barcodes']['code'],
+                    'Merchant_ProductNumber'      => $variation['id'],
+                    'EAN_Code'                    => $this->elasticExportCoreHelper->getBarcodeByType($variation, $settings->get('barcode')),
                     'Product_Title'               => $this->elasticExportCoreHelper->getName($variation, $settings, 256),
                     'Brand'                       => $this->elasticExportCoreHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
                     'Price'                       => number_format((float)$this->idlVariations[$variation['id']]['variationRetailPrice.price'], 2, '.', ''),
@@ -132,7 +142,7 @@ class BelboonDE extends CSVPluginGenerator
                     'Image_Large_WIDTH'           => $largeImageInformation['width'],
                     'Image_Large_HEIGHT'          => $largeImageInformation['height'],
                     'Merchant_Product_Category'   => $this->elasticExportCoreHelper->getCategory((int)$variation['data']['defaultCategories'][0]['id'], $settings->get('lang'), $settings->get('plentyId')),
-                    'Keywords'                    => $variation['data']['texts']['keywords'],
+                    'Keywords'                    => $variation['data']['texts'][0]['keywords'],
                     'Product_Description_Short'   => $this->elasticExportCoreHelper->getPreviewText($variation, $settings, 256),
                     'Product_Description_Long'    => $this->elasticExportCoreHelper->getDescription($variation, $settings, 256),
                     'Shipping'                    => $shipping,
@@ -145,6 +155,14 @@ class BelboonDE extends CSVPluginGenerator
         }
     }
 
+    /**
+     * Get image information.
+     *
+     * @param $variation
+     * @param KeyValue $settings
+     * @param string $imageType
+     * @return array
+     */
     private function getImageInformation($variation, KeyValue $settings, string $imageType):array
     {
         $imageList = $this->elasticExportCoreHelper->getImageList($variation, $settings, $imageType);
@@ -154,8 +172,8 @@ class BelboonDE extends CSVPluginGenerator
             $result = getimagesize($imageList[0]);
             $imageInformation = [
                 'url' => $imageList[0],
-                'width' => (int)$result[0],
-                'height' => (int)$result[1],
+                'width' => (int)$result[0] ? (int)$result[0] : 0,
+                'height' => (int)$result[1] ? (int)$result[1] : 0,
             ];
         }
         else
@@ -173,6 +191,7 @@ class BelboonDE extends CSVPluginGenerator
 
     /**
      * Creates an array with the rest of data needed from the ItemDataLayer.
+     *
      * @param RecordList $idlResultList
      */
     private function createIdlArray($idlResultList)
@@ -186,7 +205,6 @@ class BelboonDE extends CSVPluginGenerator
                     $this->idlVariations[$idlVariation->variationBase->id] = [
                         'itemBase.id' => $idlVariation->itemBase->id,
                         'variationBase.id' => $idlVariation->variationBase->id,
-                        'variationStock.stockNet' => $idlVariation->variationStock->stockNet,
                         'variationRetailPrice.price' => $idlVariation->variationRetailPrice->price,
                         'variationRetailPrice.currency' => $idlVariation->variationRetailPrice->currency,
                     ];

@@ -7,10 +7,15 @@ use Plenty\Modules\Item\DataLayer\Contracts\ItemDataLayerRepositoryContract;
 use Plenty\Modules\Item\DataLayer\Models\RecordList;
 
 
+/**
+ * Class BelboonDE
+ * @package ElasticExportBelboonDE\IDL_ResultList
+ */
 class BelboonDE
 {
     /**
      * Creates and retrieves the extra needed data from ItemDataLayer.
+     *
      * @param array $variationIds
      * @param KeyValue $settings
      * @param array $filter
@@ -42,15 +47,6 @@ class BelboonDE
 
                 'variationBase' => array(
                     'id'
-                ),
-
-                'variationStock' => array(
-                    'params' => array(
-                        'type' => 'virtual'
-                    ),
-                    'fields' => array(
-                        'stockNet'
-                    )
                 ),
 
                 'variationRetailPrice' => array(
