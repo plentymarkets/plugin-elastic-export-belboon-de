@@ -94,13 +94,26 @@ class BelboonDE extends ResultFields
                 'variation.availability.id',
 
                 //images
-                'images.item.type',
-                'images.item.path',
-                'images.item.fileType',
+                'images.all.urlMiddle',
+                'images.all.urlPreview',
+                'images.all.urlSecondPreview',
+                'images.all.url',
+                'images.all.path',
+                'images.all.position',
 
-                'images.variation.type',
+                'images.item.urlMiddle',
+                'images.item.urlPreview',
+                'images.item.urlSecondPreview',
+                'images.item.url',
+                'images.item.path',
+                'images.item.position',
+
+                'images.variation.urlMiddle',
+                'images.variation.urlPreview',
+                'images.variation.urlSecondPreview',
+                'images.variation.url',
                 'images.variation.path',
-                'images.variation.fileType',
+                'images.variation.position',
 
                 //unit
                 'unit.id',
