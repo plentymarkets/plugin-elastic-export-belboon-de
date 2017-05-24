@@ -1,5 +1,10 @@
 # Release Notes für Elastic Export Belboon.de
 
+## v1.0.3 (2017-05-24)
+
+### Geändert
+- Das Plugin Elastic Export ist nun Voraussetzung zur Nutzung des Pluginformats BelboonDE.
+
 ## v1.0.2 (2017-03-22)
 
 ### Behoben
