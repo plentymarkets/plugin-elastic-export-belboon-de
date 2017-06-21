@@ -45,12 +45,6 @@ class BelboonDE extends CSVPluginGenerator
     private $arrayHelper;
 
     /**
-     * @var array $idlVariations
-     */
-    private $idlVariations = array();
-
-
-    /**
      * BelboonDE constructor.
      *
      * @param ArrayHelper $arrayHelper
