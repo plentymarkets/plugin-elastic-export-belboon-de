@@ -1,5 +1,10 @@
 # Release Notes für Elastic Export Belboon.de
 
+## v1.0.4 (2017-06-21)
+
+### Geändert
+- Dieses Plugin läuft nun vollständig mit Daten von Elastic Search.
+
 ## v1.0.3 (2017-05-24)
 
 ### Geändert

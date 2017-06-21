@@ -6,6 +6,7 @@ use Plenty\Modules\DataExchange\Contracts\ResultFields;
 use Plenty\Modules\Helper\Services\ArrayHelper;
 use Plenty\Modules\Item\Search\Mutators\ImageMutator;
 use Plenty\Modules\Cloud\ElasticSearch\Lib\Source\Mutator\BuiltIn\LanguageMutator;
+use Plenty\Modules\Item\Search\Mutators\KeyMutator;
 
 
 /**
@@ -67,6 +68,19 @@ class BelboonDE extends ResultFields
             $itemDescriptionFields[] = 'texts.technicalData';
         }
 
+		$itemDescriptionFields[] = 'texts.lang';
+
+		/**
+		 * @var KeyMutator
+		 */
+		$keyMutator = pluginApp(KeyMutator::class);
+
+		if($keyMutator instanceof KeyMutator)
+		{
+			$keyMutator->setKeyList($this->getKeyList());
+			$keyMutator->setNestedKeyList($this->getNestedKeyList());
+		}
+
         //Mutator
         /**
          * @var ImageMutator $imageMutator
@@ -93,6 +107,10 @@ class BelboonDE extends ResultFields
                 'id',
                 'variation.availability.id',
 
+				//unit
+				'unit.id',
+				'unit.content',
+
                 //images
                 'images.all.urlMiddle',
                 'images.all.urlPreview',
@@ -115,10 +133,6 @@ class BelboonDE extends ResultFields
                 'images.variation.path',
                 'images.variation.position',
 
-                //unit
-                'unit.id',
-                'unit.content',
-
                 //defaultCategories
                 'defaultCategories.id',
 
@@ -129,6 +143,7 @@ class BelboonDE extends ResultFields
 
             [
                 $languageMutator,
+				$keyMutator
             ],
         ];
 
@@ -146,4 +161,89 @@ class BelboonDE extends ResultFields
 
         return $fields;
     }
+
+    private function getKeyList()
+	{
+		return [
+			// Item
+			'item.id',
+			'item.manufacturer.id',
+
+			// Variation
+			'variation.availability.id',
+			'variation.stockLimitation',
+
+			// Unit
+			'unit.content',
+			'unit.id',
+		];
+	}
+
+	private function getNestedKeyList()
+	{
+		return [
+			'keys' => [
+				// Barcodes
+				'barcodes',
+
+				// Default categories
+				'defaultCategories',
+
+				// Images
+				'images.all',
+				'images.item',
+				'images.variation',
+			],
+
+			'nestedKeys' => [
+				// Barcodes
+				'barcodes' => [
+					'code',
+					'type'
+				],
+
+				// Default categories
+				'defaultCategories' => [
+					'id'
+				],
+
+				// Images
+				'images.all' => [
+					'urlMiddle',
+					'urlPreview',
+					'urlSecondPreview',
+					'url',
+					'path',
+					'position',
+				],
+				'images.item' => [
+					'urlMiddle',
+					'urlPreview',
+					'urlSecondPreview',
+					'url',
+					'path',
+					'position',
+				],
+				'images.variation' => [
+					'urlMiddle',
+					'urlPreview',
+					'urlSecondPreview',
+					'url',
+					'path',
+					'position',
+				],
+				// texts
+				'texts' => [
+					'urlPath',
+					'name1',
+					'name2',
+					'name3',
+					'shortDescription',
+					'description',
+					'technicalData',
+					'lang'
+				],
+			]
+		];
+	}
 }
