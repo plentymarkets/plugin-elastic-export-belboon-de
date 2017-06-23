@@ -3,14 +3,13 @@
 namespace ElasticExportBelboonDE;
 
 use Plenty\Modules\DataExchange\Services\ExportPresetContainer;
-use Plenty\Plugin\DataExchangeServiceProvider;
-
+use Plenty\Plugin\ServiceProvider;
 
 /**
  * Class ElasticExportBelboonDEServiceProvider
  * @package ElasticExportBelboonDE
  */
-class ElasticExportBelboonDEServiceProvider extends DataExchangeServiceProvider
+class ElasticExportBelboonDEServiceProvider extends ServiceProvider
 {
     /**
      * Abstract function for registering the service provider.
@@ -24,14 +23,15 @@ class ElasticExportBelboonDEServiceProvider extends DataExchangeServiceProvider
      * Adds the export format to the export container.
      * @param ExportPresetContainer $container
      */
-    public function exports(ExportPresetContainer $container)
+    public function boot(ExportPresetContainer $container)
     {
         $container->add(
             'BelboonDE-Plugin',
             'ElasticExportBelboonDE\ResultField\BelboonDE',
             'ElasticExportBelboonDE\Generator\BelboonDE',
             '',
-            true
+            true,
+			true
         );
     }
 }

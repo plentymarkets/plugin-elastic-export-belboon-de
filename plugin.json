@@ -2,7 +2,7 @@
   "name": "ElasticExportBelboonDE",
   "namespace": "ElasticExportBelboonDE",
   "type": "export",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007",
   "pluginIcon": "icon_plugin_md.png",
   "price": 0.00,
@@ -19,9 +19,7 @@
     "en":"belboon.com"
   },
   "author": "plentymarkets GmbH",
-  "require": {
-    "ElasticExport": ">=1.0.18"
-  },
+  "require": ["ElasticExport"],
   "authorIcon": "icon_author_xs.png",
   "serviceProvider": "ElasticExportBelboonDE\\ElasticExportBelboonDEServiceProvider"
 }
