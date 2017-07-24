@@ -228,13 +228,13 @@ class BelboonDE extends CSVPluginGenerator
      */
     private function getImageInformation($variation, KeyValue $settings, string $imageType):array
     {
-        $imageList = $this->elasticExportCoreHelper->getImageList($variation, $settings, $imageType);
+        $image = $this->elasticExportCoreHelper->getMainImage($variation, $settings, $imageType);
 
-        if(count($imageList) > 0)
+        if(strlen($image) > 0)
         {
-            $result = getimagesize($imageList[0]);
+            $result = getimagesize($image);
             $imageInformation = [
-                'url' => $imageList[0],
+                'url' => $image,
                 'width' => (int)$result[0] ? (int)$result[0] : 0,
                 'height' => (int)$result[1] ? (int)$result[1] : 0,
             ];
