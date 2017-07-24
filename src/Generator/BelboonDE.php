@@ -44,6 +44,16 @@ class BelboonDE extends CSVPluginGenerator
      */
     private $arrayHelper;
 
+	/**
+	 * @var array $manufacturerCache
+	 */
+	private $manufacturerCache = [];
+
+	/**
+	 * @var array $manufacturerCache
+	 */
+	private $shippingCache = [];
+
     /**
      * BelboonDE constructor.
      *
@@ -159,22 +169,11 @@ class BelboonDE extends CSVPluginGenerator
 		//get prices
 		$priceList = $this->elasticExportPriceHelper->getPriceList($variation, $settings, 2, '.');
 
-		// Get shipping costs
-		$shipping = $this->elasticExportCoreHelper->getShippingCost($variation['data']['item']['id'], $settings);
-		if(!is_null($shipping))
-		{
-			$shipping = number_format((float)$shipping, 2, '.', '');
-		}
-		else
-		{
-			$shipping = '';
-		}
-
 		$data = [
 			'Merchant_ProductNumber'      => $variation['id'],
 			'EAN_Code'                    => $this->elasticExportCoreHelper->getBarcodeByType($variation, $settings->get('barcode')),
 			'Product_Title'               => $this->elasticExportCoreHelper->getMutatedName($variation, $settings),
-			'Brand'                       => $this->elasticExportCoreHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
+			'Brand'                       => $this->getManufacturer((int)$variation['data']['item']['manufacturer']['id']),
 			'Price'                       => $priceList['price'],
             'Price_old'                   => $priceList['recommendedRetailPrice'],
 			'Currency'                    => $priceList['currency'],
@@ -192,7 +191,7 @@ class BelboonDE extends CSVPluginGenerator
 			'Product_Description_Short'   => $this->elasticExportCoreHelper->getMutatedPreviewText($variation, $settings),
 			'Product_Description_Long'    => $this->elasticExportCoreHelper->getMutatedDescription($variation, $settings),
             'Last_Update'                 => $this->getDate($variation['data']['variation']['updatedAt']),
-			'Shipping'                    => $shipping,
+			'Shipping'                    => $this->getShipping($variation['data']['item']['id'], $settings),
 			'Availability'                => $this->elasticExportCoreHelper->getAvailability($variation, $settings, true),
 			'Unit_Price'                  => $this->elasticExportPriceHelper->getBasePrice($variation, $priceList['price'], $settings->get('lang')),
 		];
@@ -251,4 +250,56 @@ class BelboonDE extends CSVPluginGenerator
 
         return $imageInformation;
     }
+
+	/**
+	 * Returns the manufacturer by ID.
+	 *
+	 * @param int $manufacturerId
+	 * @return string
+	 */
+	public function getManufacturer(int $manufacturerId):string
+	{
+		if(!in_array($manufacturerId, $this->manufacturerCache))
+		{
+
+			$manufacturer = $this->elasticExportCoreHelper->getExternalManufacturerName((int)$manufacturerId);
+
+			if(strlen($manufacturer) > 0)
+			{
+				$this->manufacturerCache[$manufacturerId] = $manufacturer;
+			}
+		}
+
+		return $this->manufacturerCache[$manufacturerId];
+	}
+
+	/**
+	 * Returns the shipping costs by item ID.
+	 *
+	 * @param int $itemId
+	 * @param KeyValue $settings
+	 * @return string
+	 */
+	public function getShipping(int $itemId, $settings):string
+	{
+		if(!in_array($itemId, $this->shippingCache))
+		{
+			$shipping = $this->elasticExportCoreHelper->getShippingCost($itemId, $settings);
+			if(!is_null($shipping))
+			{
+				$shipping = number_format((float)$shipping, 2, '.', '');
+			}
+			else
+			{
+				$shipping = '';
+			}
+
+			if(strlen($shipping) > 0)
+			{
+				$this->shippingCache[$itemId] = $shipping;
+			}
+		}
+
+		return $this->shippingCache[$itemId];
+	}
 }
