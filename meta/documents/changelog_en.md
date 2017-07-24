@@ -3,7 +3,7 @@
 ## v1.1.0 (2017-06-24)
 
 ### Fixed
-- The column **Keywords** is now correctly exported.
+- The column **Keywords** will now be correctly exported.
 
 ### Changed
 - The column **Availability** is now filled with the name of the item availability instead of the average delivery period.
