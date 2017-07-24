@@ -166,7 +166,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
         </td>
         <td>
             <b>Beschränkung:</b> max 999.999,99 <br>
-            <b>Inhalt:</b> Der <b>Verkaufspreis</b> vom Preis-Typ <b>UVP</b> der Variante, wenn dieser höher ist als der Price.
+            <b>Inhalt:</b> Der <b>Verkaufspreis</b> vom Preis-Typ <b>UVP</b> der Variante, wenn dieser höher ist als der Preis.
         </td>        
     </tr>
     <tr>
@@ -266,7 +266,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
             Merchant Product Category
         </td>
         <td>
-            <b>Inhalt:</b> Der <b>Kategoriepfad der Standard-Kategorie</b> für den in den Formateinstellungen definierten <b>Mandanten</b>.
+            <b>Inhalt:</b> Der <b>Kategoriepfad der Standardkategorie</b> für den in den Formateinstellungen definierten <b>Mandanten</b>.
         </td>        
     </tr>
     <tr>
