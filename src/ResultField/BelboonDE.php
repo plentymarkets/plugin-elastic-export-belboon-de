@@ -106,6 +106,9 @@ class BelboonDE extends ResultFields
                 //variation
                 'id',
                 'variation.availability.id',
+                'variation.releasedAt',
+                'variation.availableUntil',
+                'variation.updatedAt',
 
 				//unit
 				'unit.id',

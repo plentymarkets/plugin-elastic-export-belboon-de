@@ -21,7 +21,7 @@ class BelboonDE extends CSVPluginGenerator
 
     const DELIMITER = ';';
 
-    const IMAGE_SIZE_WIDTH = 'width';
+    const IMAGE_SIZE_WIDTH  = 'width';
     const IMAGE_SIZE_HEIGHT = 'height';
 
     /**
@@ -58,8 +58,8 @@ class BelboonDE extends CSVPluginGenerator
      * Generates and populates the data into the CSV file.
      *
      * @param VariationElasticSearchScrollRepositoryContract $elasticSearch
-     * @param array $formatSettings
-     * @param array $filter
+     * @param array                                          $formatSettings
+     * @param array                                          $filter
      */
     protected function generatePluginContent($elasticSearch, array $formatSettings = [], array $filter = [])
     {
@@ -78,7 +78,10 @@ class BelboonDE extends CSVPluginGenerator
 			'Product_Title',
 			'Brand',
 			'Price',
+            'Price_old',
 			'Currency',
+			'Valid_From',
+			'Valid_To',
 			'DeepLink_URL',
 			'Image_Small_URL',
 			'Image_Small_WIDTH',
@@ -90,6 +93,7 @@ class BelboonDE extends CSVPluginGenerator
 			'Keywords',
 			'Product_Description_Short',
 			'Product_Description_Long',
+			'Last_Update',
 			'Shipping',
 			'Availability',
 			'Unit_Price',
@@ -143,8 +147,8 @@ class BelboonDE extends CSVPluginGenerator
     }
 
 	/**
-	 * @param $variation
-	 * @param $settings
+	 * @param array     $variation
+	 * @param KeyValue  $settings
 	 */
     private function buildRow($variation, $settings)
 	{
@@ -152,9 +156,8 @@ class BelboonDE extends CSVPluginGenerator
 		$previewImageInformation = $this->getImageInformation($variation, $settings, 'preview');
 		$largeImageInformation = $this->getImageInformation($variation, $settings, 'normal');
 
+		//get prices
 		$priceList = $this->elasticExportPriceHelper->getPriceList($variation, $settings, 2, '.');
-		$currency = $priceList['currency'];
-		$price['variationRetailPrice.price'] = $priceList['price'];
 
 		// Get shipping costs
 		$shipping = $this->elasticExportCoreHelper->getShippingCost($variation['data']['item']['id'], $settings);
@@ -170,10 +173,13 @@ class BelboonDE extends CSVPluginGenerator
 		$data = [
 			'Merchant_ProductNumber'      => $variation['id'],
 			'EAN_Code'                    => $this->elasticExportCoreHelper->getBarcodeByType($variation, $settings->get('barcode')),
-			'Product_Title'               => $this->elasticExportCoreHelper->getMutatedName($variation, $settings, 256),
+			'Product_Title'               => $this->elasticExportCoreHelper->getMutatedName($variation, $settings),
 			'Brand'                       => $this->elasticExportCoreHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
-			'Price'                       => $price['variationRetailPrice.price'],
-			'Currency'                    => $currency,
+			'Price'                       => $priceList['price'],
+            'Price_old'                   => $priceList['recommendedRetailPrice'],
+			'Currency'                    => $priceList['currency'],
+            'Valid_From'                  => $this->getDate($variation['data']['variation']['releasedAt']),
+            'Valid_To'                    => $this->getDate($variation['data']['variation']['availableUntil']),
 			'DeepLink_URL'                => $this->elasticExportCoreHelper->getMutatedUrl($variation, $settings),
 			'Image_Small_URL'             => $previewImageInformation['url'],
 			'Image_Small_WIDTH'           => $previewImageInformation['width'],
@@ -182,23 +188,43 @@ class BelboonDE extends CSVPluginGenerator
 			'Image_Large_WIDTH'           => $largeImageInformation['width'],
 			'Image_Large_HEIGHT'          => $largeImageInformation['height'],
 			'Merchant_Product_Category'   => $this->elasticExportCoreHelper->getCategory((int)$variation['data']['defaultCategories'][0]['id'], $settings->get('lang'), $settings->get('plentyId')),
-			'Keywords'                    => $variation['data']['texts'][0]['keywords'],
-			'Product_Description_Short'   => $this->elasticExportCoreHelper->getMutatedPreviewText($variation, $settings, 256),
-			'Product_Description_Long'    => $this->elasticExportCoreHelper->getMutatedDescription($variation, $settings, 256),
+			'Keywords'                    => $variation['data']['texts']['keywords'],
+			'Product_Description_Short'   => $this->elasticExportCoreHelper->getMutatedPreviewText($variation, $settings),
+			'Product_Description_Long'    => $this->elasticExportCoreHelper->getMutatedDescription($variation, $settings),
+            'Last_Update'                 => $this->getDate($variation['data']['variation']['updatedAt']),
 			'Shipping'                    => $shipping,
-			'Availability'                => $this->elasticExportCoreHelper->getAvailability($variation, $settings, false),
-			'Unit_Price'                  => $this->elasticExportCoreHelper->getBasePrice($variation, $price, $settings->get('lang')),
+			'Availability'                => $this->elasticExportCoreHelper->getAvailability($variation, $settings, true),
+			'Unit_Price'                  => $this->elasticExportPriceHelper->getBasePrice($variation, $priceList['price'], $settings->get('lang')),
 		];
 
 		$this->addCSVContent(array_values($data));
 	}
 
     /**
+     * get date in correct format
+     *
+     * @param  string $date
+     * @return string
+     */
+	private function getDate($date):string
+    {
+        if(strlen($date) && substr($date, 0, -6) != '0000-00-00T00:00:00')
+        {
+            $date = str_replace('T', ' ', $date);
+            $date = substr($date, 0, -6);
+
+            return $date;
+        }
+
+        return '';
+    }
+
+    /**
      * Get image information.
      *
-     * @param $variation
-     * @param KeyValue $settings
-     * @param string $imageType
+     * @param  array    $variation
+     * @param  KeyValue $settings
+     * @param  string   $imageType
      * @return array
      */
     private function getImageInformation($variation, KeyValue $settings, string $imageType):array
@@ -224,6 +250,5 @@ class BelboonDE extends CSVPluginGenerator
         }
 
         return $imageInformation;
-
     }
 }
