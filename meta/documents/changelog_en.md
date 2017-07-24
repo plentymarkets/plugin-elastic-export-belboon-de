@@ -1,5 +1,20 @@
 # Release Notes for Elastic Export Belboon.de
 
+## v1.1.0 (2017-06-24)
+
+### Fixed
+- The column **Keywords** is now correctly exported.
+
+### Changed
+- The column **Availability** is now filled with the name of the item availability instead of the average delivery period.
+- The character limit of 256 was removed for the columns **Product_Title**, **Product_Description_Short** and **Product_Description_Long**.
+
+### Added
+- The column **Price_old** was added.
+- The column **Valid_From** was added.
+- The column **Valid_To** was added.
+- The column **Last_Update** was added.
+
 ## v1.0.4 (2017-06-21)
 
 ### Changed

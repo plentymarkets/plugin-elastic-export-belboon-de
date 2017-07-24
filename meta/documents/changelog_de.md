@@ -1,5 +1,20 @@
 # Release Notes für Elastic Export Belboon.de
 
+## v1.1.0 (2017-06-24)
+
+### Behoben
+- Die Spalte **Keywords** wird jetzt korrekt ausgegeben.
+
+### Geändert
+- Die Spalte **Availability** wird nun mit dem Namen der Artikelverfügbarkeit statt der durchschnittlichen Lieferzeit gefüllt.
+- Die Zeichenbegrenzung auf 256 Zeichen für **Product_Title**, **Product_Description_Short** und **Product_Description_Long** wurde entfernt.
+
+### Hinzugefügt
+- Die Spalte **Price_old** wurde hinzugefügt.
+- Die Spalte **Valid_From** wurde hinzugefügt.
+- Die Spalte **Valid_To** wurde hinzugefügt.
+- Die Spalte **Last_Update** wurde hinzugefügt.
+
 ## v1.0.4 (2017-06-21)
 
 ### Geändert
