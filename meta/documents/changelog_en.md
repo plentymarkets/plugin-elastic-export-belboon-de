@@ -1,6 +1,6 @@
 # Release Notes for Elastic Export Belboon.de
 
-## v1.1.0 (2017-06-24)
+## v1.1.0 (2017-07-31)
 
 ### Fixed
 - The column **Keywords** will now be correctly exported.

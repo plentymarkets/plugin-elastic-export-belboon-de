@@ -4,10 +4,11 @@ namespace ElasticExportBelboonDE\ResultField;
 
 use Plenty\Modules\DataExchange\Contracts\ResultFields;
 use Plenty\Modules\Helper\Services\ArrayHelper;
+use Plenty\Modules\Item\Search\Mutators\BarcodeMutator;
+use Plenty\Modules\Item\Search\Mutators\DefaultCategoryMutator;
 use Plenty\Modules\Item\Search\Mutators\ImageMutator;
 use Plenty\Modules\Cloud\ElasticSearch\Lib\Source\Mutator\BuiltIn\LanguageMutator;
 use Plenty\Modules\Item\Search\Mutators\KeyMutator;
-
 
 /**
  * Class BelboonDE
@@ -19,7 +20,6 @@ class BelboonDE extends ResultFields
      * @var ArrayHelper
      */
     private $arrayHelper;
-
 
     /**
      * BelboonDE constructor.
@@ -41,9 +41,10 @@ class BelboonDE extends ResultFields
     {
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
 
-        $reference = $settings->get('referrerId') ? $settings->get('referrerId') : -1;
+        $reference = $settings->get('referrerId');
 
-        $itemDescriptionFields = ['texts.urlPath', 'texts.keywords'];
+        $itemDescriptionFields = ['texts.urlPath', 'texts.lang', 'texts.keywords'];
+
         $itemDescriptionFields[] = ($settings->get('nameId')) ? 'texts.name' . $settings->get('nameId') : 'texts.name1';
 
         if($settings->get('descriptionType') == 'itemShortDescription'
@@ -68,19 +69,6 @@ class BelboonDE extends ResultFields
             $itemDescriptionFields[] = 'texts.technicalData';
         }
 
-		$itemDescriptionFields[] = 'texts.lang';
-
-		/**
-		 * @var KeyMutator
-		 */
-		$keyMutator = pluginApp(KeyMutator::class);
-
-		if($keyMutator instanceof KeyMutator)
-		{
-			$keyMutator->setKeyList($this->getKeyList());
-			$keyMutator->setNestedKeyList($this->getNestedKeyList());
-		}
-
         //Mutator
         /**
          * @var ImageMutator $imageMutator
@@ -92,29 +80,59 @@ class BelboonDE extends ResultFields
         }
 
         /**
+         * @var KeyMutator
+         */
+        $keyMutator = pluginApp(KeyMutator::class);
+
+        if($keyMutator instanceof KeyMutator)
+        {
+            $keyMutator->setKeyList($this->getKeyList());
+            $keyMutator->setNestedKeyList($this->getNestedKeyList());
+        }
+
+        /**
          * @var LanguageMutator $languageMutator
          */
         $languageMutator = pluginApp(LanguageMutator::class, [[$settings->get('lang')]]);
 
+        /**
+         * @var DefaultCategoryMutator $defaultCategoryMutator
+         */
+        $defaultCategoryMutator = pluginApp(DefaultCategoryMutator::class);
+        if($defaultCategoryMutator instanceof DefaultCategoryMutator)
+        {
+            $defaultCategoryMutator->setPlentyId($settings->get('plentyId'));
+        }
+
+        /**
+         * @var BarcodeMutator $barcodeMutator
+         */
+        $barcodeMutator = pluginApp(BarcodeMutator::class);
+        if($barcodeMutator instanceof BarcodeMutator)
+        {
+            $barcodeMutator->addMarket($reference);
+        }
+
         //Fields
         $fields = [
             [
-                //item
+                // Item
                 'item.id',
                 'item.manufacturer.id',
 
-                //variation
+                // Variation
                 'id',
                 'variation.availability.id',
+                'variation.stockLimitation',
                 'variation.releasedAt',
                 'variation.availableUntil',
                 'variation.updatedAt',
 
-				//unit
+				// Unit
 				'unit.id',
 				'unit.content',
 
-                //images
+                // Images
                 'images.all.urlMiddle',
                 'images.all.urlPreview',
                 'images.all.urlSecondPreview',
@@ -136,17 +154,19 @@ class BelboonDE extends ResultFields
                 'images.variation.path',
                 'images.variation.position',
 
-                //defaultCategories
+                // DefaultCategories
                 'defaultCategories.id',
 
-                //barcodes
+                // Barcodes
                 'barcodes.code',
                 'barcodes.type',
             ],
 
             [
                 $languageMutator,
-				$keyMutator
+                $defaultCategoryMutator,
+                $barcodeMutator,
+                $keyMutator,
             ],
         ];
 
@@ -158,13 +178,18 @@ class BelboonDE extends ResultFields
 
         foreach($itemDescriptionFields as $itemDescriptionField)
         {
-            //texts
+            // Texts
             $fields[0][] = $itemDescriptionField;
         }
 
         return $fields;
     }
 
+    /**
+     * Returns the list of keys.
+     *
+     * @return array
+     */
     private function getKeyList()
 	{
 		return [
@@ -173,8 +198,11 @@ class BelboonDE extends ResultFields
 			'item.manufacturer.id',
 
 			// Variation
-			'variation.availability.id',
-			'variation.stockLimitation',
+            'variation.availability.id',
+            'variation.stockLimitation',
+            'variation.releasedAt',
+            'variation.availableUntil',
+            'variation.updatedAt',
 
 			// Unit
 			'unit.content',
@@ -182,6 +210,11 @@ class BelboonDE extends ResultFields
 		];
 	}
 
+    /**
+     * Returns the list of nested keys.
+     *
+     * @return mixed
+     */
 	private function getNestedKeyList()
 	{
 		return [
@@ -196,18 +229,21 @@ class BelboonDE extends ResultFields
 				'images.all',
 				'images.item',
 				'images.variation',
+
+                // Texts
+                'texts',
 			],
 
 			'nestedKeys' => [
 				// Barcodes
 				'barcodes' => [
 					'code',
-					'type'
+					'type',
 				],
 
 				// Default categories
 				'defaultCategories' => [
-					'id'
+					'id',
 				],
 
 				// Images
@@ -235,18 +271,20 @@ class BelboonDE extends ResultFields
 					'path',
 					'position',
 				],
-				// texts
+
+				// Texts
 				'texts' => [
-					'urlPath',
-					'name1',
-					'name2',
-					'name3',
-					'shortDescription',
-					'description',
-					'technicalData',
-					'lang'
+                    'urlPath',
+                    'lang',
+                    'name1',
+                    'name2',
+                    'name3',
+                    'shortDescription',
+                    'description',
+                    'technicalData',
+                    'keywords',
 				],
-			]
+			],
 		];
 	}
 }

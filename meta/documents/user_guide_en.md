@@ -209,7 +209,7 @@ The following table lists details for settings, format settings and recommended 
         </td>
         <td>
             <b>Required</b><br>>
-            <b>Content:</b> URL of the image in preview size according to the format setting <b>image</b>. Variation images are prioritizied over item images.
+            <b>Content:</b> URL of the image in preview size according to the format setting <b>image</b>. Variation images are prioritized over item images.
         </td>        
     </tr>
     <tr>
@@ -238,7 +238,7 @@ The following table lists details for settings, format settings and recommended 
         </td>
         <td>
             <b>Required</b><br>>
-            <b>Content:</b> URL of the image according to the format setting <b>image</b>. Variation images are prioritizied over item images.
+            <b>Content:</b> URL of the image according to the format setting <b>image</b>. Variation images are prioritized over item images.
         </td>        
     </tr>
     <tr>
@@ -266,7 +266,7 @@ The following table lists details for settings, format settings and recommended 
             Merchant Product Category
         </td>
         <td>
-            <b>Content:</b> The <b>category path of the default cateogory</b> for the defined client in the format settings.
+            <b>Content:</b> The <b>category path of the default category</b> for the defined client in the format settings.
         </td>        
     </tr>
     <tr>
@@ -318,7 +318,7 @@ The following table lists details for settings, format settings and recommended 
         </td>
         <td>
             <b>Required</b><br>>
-            <b>Content:</b> Translation according to the format setting <b>Override item availabilty</b>.
+            <b>Content:</b> Translation according to the format setting <b>Override item availability</b>.
         </td>        
     </tr>
     <tr>
