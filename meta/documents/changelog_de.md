@@ -1,6 +1,6 @@
 # Release Notes für Elastic Export Belboon.de
 
-## v1.1.1 (2017-08-03)
+## v1.1.1 (2017-08-04)
 
 ### Behoben
 - Es wurde ein Fehler behoben, der dazu geführt hat, dass das Bild nicht anhand der Position ausgelesen wurden. 
