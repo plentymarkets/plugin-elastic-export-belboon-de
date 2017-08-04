@@ -233,8 +233,7 @@ class BelboonDE extends CSVPluginGenerator
     private function buildRow($variation, $settings)
 	{
 		// Get preview and large image information
-		$previewImageInformation = $this->getImageInformation($variation, $settings, 'preview');
-		$largeImageInformation = $this->getImageInformation($variation, $settings, 'normal');
+		$imageInformation = $this->getImageInformation($variation, $settings, 'preview');
 
 		// Get prices
 		$priceList = $this->elasticExportPriceHelper->getPriceList($variation, $settings, 2, '.');
@@ -253,12 +252,12 @@ class BelboonDE extends CSVPluginGenerator
                 'Valid_From'                  => $this->getDate($variation['data']['variation']['releasedAt']),
                 'Valid_To'                    => $this->getDate($variation['data']['variation']['availableUntil']),
                 'DeepLink_URL'                => $this->elasticExportHelper->getMutatedUrl($variation, $settings),
-                'Image_Small_URL'             => $previewImageInformation['url'],
-                'Image_Small_WIDTH'           => $previewImageInformation['width'],
-                'Image_Small_HEIGHT'          => $previewImageInformation['height'],
-                'Image_Large_URL'             => $largeImageInformation['url'],
-                'Image_Large_WIDTH'           => $largeImageInformation['width'],
-                'Image_Large_HEIGHT'          => $largeImageInformation['height'],
+				'Image_Small_URL'             => $imageInformation['preview']['url'],
+				'Image_Small_WIDTH'           => $imageInformation['preview']['width'],
+				'Image_Small_HEIGHT'          => $imageInformation['preview']['height'],
+				'Image_Large_URL'             => $imageInformation['normal']['url'],
+				'Image_Large_WIDTH'           => $imageInformation['normal']['width'],
+				'Image_Large_HEIGHT'          => $imageInformation['normal']['height'],
                 'Merchant_Product_Category'   => $this->elasticExportHelper->getCategory((int)$variation['data']['defaultCategories'][0]['id'], $settings->get('lang'), $settings->get('plentyId')),
                 'Keywords'                    => $variation['data']['texts']['keywords'],
                 'Product_Description_Short'   => $this->elasticExportHelper->getMutatedPreviewText($variation, $settings),
@@ -306,29 +305,50 @@ class BelboonDE extends CSVPluginGenerator
      * @param  string   $imageType
      * @return array
      */
-    private function getImageInformation($variation, KeyValue $settings, string $imageType):array
-    {
-        $image = $this->elasticExportHelper->getMainImage($variation, $settings, $imageType);
+	private function getImageInformation($variation, KeyValue $settings, string $imageType):array
+	{
+		$image = $this->elasticExportHelper->getImageListInOrder($variation, $settings, 1, $this->elasticExportHelper::VARIATION_IMAGES, $imageType, true);
 
-        $imageInformation = [
-            'url' => '',
-            'width' => '',
-            'height' => '',
-        ];
+		$imageInformation = [
+			'preview' => [
+				'url' => '',
+				'width' => '',
+				'height' => '',
+			],
+			'normal' => [
+				'url' => '',
+				'width' => '',
+				'height' => '',
+			]
+		];
 
-        if(strlen($image) > 0)
-        {
-            $result = getimagesize($image);
+		foreach($image as $imageData)
+		{
+			if(strlen($imageData['urlPreview']) > 0)
+			{
+				$result = getimagesize($imageData['urlPreview']);
 
-            $imageInformation = [
-                'url' => $image,
-                'width' => (isset($result[0]) && (int)$result[0]) ? (int)$result[0] : '',
-                'height' => (isset($result[1]) && (int)$result[1]) ? (int)$result[1] : '',
-            ];
-        }
+				$imageInformation['preview'] = [
+					'url' => $imageData['urlPreview'],
+					'width' => (isset($result[0]) && (int)$result[0]) ? (int)$result[0] : '',
+					'height' => (isset($result[1]) && (int)$result[1]) ? (int)$result[1] : '',
+				];
+			}
 
-        return $imageInformation;
-    }
+			if(strlen($imageData['url']) > 0)
+			{
+				$result = getimagesize($imageData['url']);
+
+				$imageInformation['normal'] = [
+					'url' => $imageData['url'],
+					'width' => (isset($result[0]) && (int)$result[0]) ? (int)$result[0] : '',
+					'height' => (isset($result[1]) && (int)$result[1]) ? (int)$result[1] : '',
+				];
+			}
+		}
+
+		return $imageInformation;
+	}
 
     /**
      * Get the shipping cost.
