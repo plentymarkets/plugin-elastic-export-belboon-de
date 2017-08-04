@@ -1,6 +1,6 @@
 # Release Notes for Elastic Export Belboon.de
 
-## v1.1.1 (2017-08-03)
+## v1.1.1 (2017-08-04)
 
 ### Fixed
 - An issue was fixed which caused the images to not be sorted by position.
