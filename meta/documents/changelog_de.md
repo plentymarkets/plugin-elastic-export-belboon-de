@@ -3,7 +3,7 @@
 ## v1.1.1 (2017-08-03)
 
 ### Behoben
-- Es wurde ein Fehler behoben der dazu geführt hat, dass das Bild nicht anhand der Position ausgelesen werden. 
+- Es wurde ein Fehler behoben, der dazu geführt hat, dass das Bild nicht anhand der Position ausgelesen wurden. 
 
 ## v1.1.0 (2017-08-01)
 
