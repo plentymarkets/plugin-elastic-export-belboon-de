@@ -3,7 +3,7 @@
 ## v1.1.1 (2017-08-03)
 
 ### Fixed
-- An issue was fixed which caused the images not to be sorted by position.
+- An issue was fixed which caused the images to not be sorted by position.
 ## v1.1.0 (2017-08-01) 
 
 ### Fixed
