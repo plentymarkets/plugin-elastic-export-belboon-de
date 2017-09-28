@@ -120,7 +120,7 @@ The following table lists details for settings, format settings and recommended 
             Merchant_ProductNumber
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Limitation:</b> only Numbers allowed, max. 20 characters<br>
             <b>Content:</b> The variation id of the variation.
         </td>        
@@ -138,7 +138,7 @@ The following table lists details for settings, format settings and recommended 
             Product_Title
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Content:</b> According to the format setting <b>item name</b>.
         </td>        
     </tr>
@@ -155,7 +155,7 @@ The following table lists details for settings, format settings and recommended 
             Price
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Limitation:</b> max 999.999,99 <br>
             <b>Content:</b> The <b>sales price</b> of the variation.
         </td>        
@@ -174,7 +174,7 @@ The following table lists details for settings, format settings and recommended 
             Currency
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Content:</b> The ISO code of the <b>currency</b> of the price.
         </td>        
     </tr>
@@ -199,7 +199,7 @@ The following table lists details for settings, format settings and recommended 
             DeepLink_URL
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Content:</b> The <b>URL path</b> of the item depending on the chosen <b>client</b> in the format settings.
         </td>        
     </tr>
@@ -208,7 +208,7 @@ The following table lists details for settings, format settings and recommended 
             Image_Small_URL
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Content:</b> URL of the image in preview size according to the format setting <b>image</b>. Variation images are prioritized over item images.
         </td>        
     </tr>
@@ -217,7 +217,7 @@ The following table lists details for settings, format settings and recommended 
             Image_Small_WIDTH
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Limitation:</b> max 11 characters<br>
             <b>Content:</b> The width of the image from <b>Image_Small_URL</b>.
         </td>        
@@ -227,7 +227,7 @@ The following table lists details for settings, format settings and recommended 
             Image_Small_HEIGHT
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Limitation:</b> max 11 characters<br>
             <b>Content:</b> The height of the image from <b>Image_Small_URL</b>.
         </td>        
@@ -237,7 +237,7 @@ The following table lists details for settings, format settings and recommended 
             Image_Large_URL
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Content:</b> URL of the image according to the format setting <b>image</b>. Variation images are prioritized over item images.
         </td>        
     </tr>
@@ -256,7 +256,7 @@ The following table lists details for settings, format settings and recommended 
             Image_Large_HEIGHT
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Limitation:</b> max 11 characters<br>
             <b>Content:</b> The height of the image from <b>Image_Large_WIDTH</b>.
         </td>        
@@ -274,7 +274,7 @@ The following table lists details for settings, format settings and recommended 
             Keywords
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Content:</b> Meta keywords of the item from <b>Tab: Texts</b>.
         </td>        
     </tr>
@@ -283,7 +283,7 @@ The following table lists details for settings, format settings and recommended 
             Product_Description_Short
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Content:</b> According to the format setting <b>Preview text</b>.
         </td>        
     </tr>
@@ -308,7 +308,7 @@ The following table lists details for settings, format settings and recommended 
             Shipping
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Content:</b> According to the format setting <b>shipping costs</b>.
         </td>        
     </tr>
@@ -317,7 +317,7 @@ The following table lists details for settings, format settings and recommended 
             Availability
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Content:</b> Translation according to the format setting <b>Override item availability</b>.
         </td>        
     </tr>

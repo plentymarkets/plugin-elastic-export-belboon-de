@@ -25,17 +25,17 @@ class BelboonDE extends CSVPluginGenerator
     const IMAGE_SIZE_HEIGHT = 'height';
 
     /**
-     * @var ElasticExportCoreHelper $elasticExportHelper
+     * @var ElasticExportCoreHelper
      */
     private $elasticExportHelper;
 
 	/**
-	 * @var ElasticExportPriceHelper $elasticExportPriceHelper
+	 * @var ElasticExportPriceHelper
 	 */
     private $elasticExportPriceHelper;
 
 	/**
-	 * @var ElasticExportStockHelper $elasticExportStockHelper
+	 * @var ElasticExportStockHelper
 	 */
     private $elasticExportStockHelper;
 
@@ -45,12 +45,7 @@ class BelboonDE extends CSVPluginGenerator
     private $arrayHelper;
 
 	/**
-	 * @var array $manufacturerCache
-	 */
-	private $manufacturerCache = [];
-
-	/**
-	 * @var array $manufacturerCache
+	 * @var array
 	 */
 	private $shippingCostCache = [];
 
@@ -75,7 +70,9 @@ class BelboonDE extends CSVPluginGenerator
     {
     	// Initialize helper classes
         $this->elasticExportHelper = pluginApp(ElasticExportCoreHelper::class);
+
         $this->elasticExportPriceHelper = pluginApp(ElasticExportPriceHelper::class);
+
         $this->elasticExportStockHelper = pluginApp(ElasticExportStockHelper::class);
 
 		$settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
@@ -83,8 +80,6 @@ class BelboonDE extends CSVPluginGenerator
 		$this->setDelimiter(self::DELIMITER);
 
         $this->addCSVContent($this->head());
-
-        $startTime = microtime(true);
 
         if($elasticSearch instanceof VariationElasticSearchScrollRepositoryContract)
         {
@@ -94,25 +89,14 @@ class BelboonDE extends CSVPluginGenerator
 
             do
             {
-                // Current number of lines written
-                $this->getLogger(__METHOD__)->debug('ElasticExportBelboonDE::logs.writtenLines', [
-                    'Lines written' => $limit,
-                ]);
-
                 // Stop writing if limit is reached
                 if($limitReached === true)
                 {
                     break;
                 }
 
-                $esStartTime = microtime(true);
-
                 // Get the data from Elastic Search
                 $resultList = $elasticSearch->execute();
-
-                $this->getLogger(__METHOD__)->debug('ElasticExportBelboonDE::logs.esDuration', [
-                    'Elastic Search duration' => microtime(true) - $esStartTime,
-                ]);
 
                 if(count($resultList['error']) > 0)
                 {
@@ -122,8 +106,6 @@ class BelboonDE extends CSVPluginGenerator
 
                     break;
                 }
-
-                $buildRowStartTime = microtime(true);
 
                 if(is_array($resultList['documents']) && count($resultList['documents']) > 0)
                 {
@@ -141,10 +123,6 @@ class BelboonDE extends CSVPluginGenerator
                         // If filtered by stock is set and stock is negative, then skip the variation
                         if ($this->elasticExportStockHelper->isFilteredByStock($variation, $filter) === true)
                         {
-                            $this->getLogger(__METHOD__)->info('ElasticExportBelboonDE::logs.variationNotPartOfExportStock', [
-                                'VariationId' => $variation['id']
-                            ]);
-
                             continue;
                         }
 
@@ -175,18 +153,10 @@ class BelboonDE extends CSVPluginGenerator
                         // New line was added
                         $limit++;
                     }
-
-                    $this->getLogger(__METHOD__)->debug('ElasticExportBelboonDE::logs.buildRowDuration', [
-                        'Build rows duration' => microtime(true) - $buildRowStartTime,
-                    ]);
                 }
 
             } while ($elasticSearch->hasNext());
         }
-
-        $this->getLogger(__METHOD__)->debug('ElasticExportBelboonDE::logs.fileGenerationDuration', [
-            'Whole file generation duration' => microtime(true) - $startTime,
-        ]);
     }
 
     /**
@@ -232,20 +202,26 @@ class BelboonDE extends CSVPluginGenerator
 	 */
     private function buildRow($variation, $settings)
 	{
-		// Get preview and large image information
-		$imageInformation = $this->getImageInformation($variation, $settings, 'preview');
-
 		// Get prices
 		$priceList = $this->elasticExportPriceHelper->getPriceList($variation, $settings, 2, '.');
 
         // Only variations with the Retail Price greater than zero will be handled
         if(!is_null($priceList['price']) && (float)$priceList['price'] > 0)
         {
+            $imageStartTime = microtime(true);
+
+            // Get preview and large image information
+            $imageInformation = $this->getImageInformation($variation, $settings, 'preview');
+
+            $this->getLogger(__METHOD__)->debug('ElasticExportBelboonDE::logs.imageInformationDuration', [
+                'Image information duration' => microtime(true) - $imageStartTime,
+            ]);
+
             $data = [
                 'Merchant_ProductNumber'      => $variation['id'],
                 'EAN_Code'                    => $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),
                 'Product_Title'               => $this->elasticExportHelper->getMutatedName($variation, $settings),
-                'Brand'                       => $this->getManufacturer($variation),
+                'Brand'                       => $this->elasticExportHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
                 'Price'                       => $priceList['price'],
                 'Price_old'                   => $priceList['recommendedRetailPrice'],
                 'Currency'                    => $priceList['currency'],
@@ -269,12 +245,6 @@ class BelboonDE extends CSVPluginGenerator
             ];
 
             $this->addCSVContent(array_values($data));
-        }
-        else
-        {
-            $this->getLogger(__METHOD__)->info('ElasticExportBelboonDE::logs.variationNotPartOfExportPrice', [
-                'VariationId' => $variation['id']
-            ]);
         }
 	}
 
@@ -307,7 +277,7 @@ class BelboonDE extends CSVPluginGenerator
      */
 	private function getImageInformation($variation, KeyValue $settings, string $imageType):array
 	{
-		$image = $this->elasticExportHelper->getImageListInOrder($variation, $settings, 1, $this->elasticExportHelper::VARIATION_IMAGES, $imageType, true);
+		$image = $this->elasticExportHelper->getImageListInOrder($variation, $settings, 1, ElasticExportCoreHelper::VARIATION_IMAGES, $imageType, true);
 
 		$imageInformation = [
 			'preview' => [
@@ -364,25 +334,9 @@ class BelboonDE extends CSVPluginGenerator
             $shippingCost = $this->shippingCostCache[$variation['data']['item']['id']];
         }
 
-        if(!is_null($shippingCost))
+        if(!is_null($shippingCost) && $shippingCost > 0)
         {
             return number_format((float)$shippingCost, 2, '.', '');
-        }
-
-        return '';
-    }
-
-    /**
-     * Get the manufacturer name.
-     *
-     * @param  array $variation
-     * @return string
-     */
-    private function getManufacturer($variation):string
-    {
-        if(isset($this->manufacturerCache) && array_key_exists($variation['data']['item']['manufacturer']['id'], $this->manufacturerCache))
-        {
-            return $this->manufacturerCache[$variation['data']['item']['manufacturer']['id']];
         }
 
         return '';
@@ -400,15 +354,6 @@ class BelboonDE extends CSVPluginGenerator
         {
             $shippingCost = $this->elasticExportHelper->getShippingCost($variation['data']['item']['id'], $settings);
             $this->shippingCostCache[$variation['data']['item']['id']] = (float)$shippingCost;
-
-            if(!is_null($variation['data']['item']['manufacturer']['id']))
-            {
-                if(!isset($this->manufacturerCache) || (isset($this->manufacturerCache) && !array_key_exists($variation['data']['item']['manufacturer']['id'], $this->manufacturerCache)))
-                {
-                    $manufacturer = $this->elasticExportHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']);
-                    $this->manufacturerCache[$variation['data']['item']['manufacturer']['id']] = $manufacturer;
-                }
-            }
         }
     }
 }
