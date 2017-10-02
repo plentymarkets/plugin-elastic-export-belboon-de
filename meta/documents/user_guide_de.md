@@ -122,7 +122,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
         <td>
             <b>Pflichtfeld</b><br>
             <b>Beschränkung:</b> nur Zahlen erlaubt, max. 20 Zeichen<br>
-            <b>Inhalt:</b> Die Varianten-ID der Variante.
+            Die Varianten-ID der Variante.
         </td>        
     </tr>
     <tr>
@@ -130,7 +130,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
             EAN_Code
         </td>
         <td>
-            <b>Inhalt:</b> Entsprechend der Formateinstellung <b>Barcode</b>.
+            Entsprechend der Formateinstellung <b>Barcode</b>.
         </td>        
     </tr>
     <tr>
@@ -139,7 +139,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
         </td>
         <td>
             <b>Pflichtfeld</b><br>
-            <b>Inhalt:</b> Entsprechend der Formateinstellung <b>Artikelname</b>.
+            Entsprechend der Formateinstellung <b>Artikelname</b>.
         </td>        
     </tr>
     <tr>
@@ -147,7 +147,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
             Brand
         </td>
         <td>
-            <b>Inhalt:</b> Der <b>Name des Herstellers</b> des Artikels. Der <b>Externe Name</b> unter <b>Einstellungen » Artikel » Hersteller</b> wird bevorzugt, wenn vorhanden.
+            Der <b>Name des Herstellers</b> des Artikels. Der <b>Externe Name</b> unter <b>Einstellungen » Artikel » Hersteller</b> wird bevorzugt, wenn vorhanden.
         </td>        
     </tr>
     <tr>
@@ -157,7 +157,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
         <td>
             <b>Pflichtfeld</b><br>
             <b>Beschränkung:</b> max 999.999,99 <br>
-            <b>Inhalt:</b> Der <b>Verkaufspreis</b> der Variante.
+            Der <b>Verkaufspreis</b> der Variante.
         </td>        
     </tr>
     <tr>
@@ -166,7 +166,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
         </td>
         <td>
             <b>Beschränkung:</b> max 999.999,99 <br>
-            <b>Inhalt:</b> Der <b>Verkaufspreis</b> vom Preis-Typ <b>UVP</b> der Variante, wenn dieser höher ist als der Preis.
+            Der <b>Verkaufspreis</b> vom Preis-Typ <b>UVP</b> der Variante, wenn dieser höher ist als der Preis.
         </td>        
     </tr>
     <tr>
@@ -175,7 +175,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
         </td>
         <td>
             <b>Pflichtfeld</b><br>
-            <b>Inhalt:</b> Der ISO-Code der <b>Währung</b> des Preises.
+            Der ISO-Code der <b>Währung</b> des Preises.
         </td>        
     </tr>
     <tr>
@@ -183,7 +183,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
             Valid_From
         </td>
         <td>
-            <b>Inhalt:</b> Das <b>Erscheinungsdatum</b> der Variante. 
+            Das <b>Erscheinungsdatum</b> der Variante. 
         </td>        
     </tr>
     <tr>
@@ -191,7 +191,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
             Valid_To
         </td>
         <td>
-            <b>Inhalt:</b> Das Datum aus der Einstellung <b>Verfügbar bis</b> der Variante.
+            Das Datum aus der Einstellung <b>Verfügbar bis</b> der Variante.
         </td>        
     </tr>
     <tr>
@@ -200,7 +200,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
         </td>
         <td>
             <b>Pflichtfeld</b><br>
-            <b>Inhalt:</b> Der <b>URL-Pfad</b> des Artikels abhängig vom gewählten <b>Mandanten</b> in den Formateinstellungen.
+            Der <b>URL-Pfad</b> des Artikels abhängig vom gewählten <b>Mandanten</b> in den Formateinstellungen.
         </td>        
     </tr>
     <tr>
@@ -209,7 +209,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
         </td>
         <td>
             <b>Pflichtfeld</b><br>
-            <b>Inhalt:</b> URL zu dem Bild in der Vorschaugröße gemäß der Formateinstellungen <b>Bild</b>. Variantenbilder werden vor Artikelbildern priorisiert.
+            URL zu dem Bild in der Vorschaugröße gemäß der Formateinstellungen <b>Bild</b>. Variantenbilder werden vor Artikelbildern priorisiert.
         </td>        
     </tr>
     <tr>
@@ -229,7 +229,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
         <td>
             <b>Pflichtfeld</b><br>
             <b>Beschränkung:</b> max 11 Zeichen<br>
-            <b>Inhalt:</b> Höhe des Bildes aus <b>Image_Small_URL</b>.
+            Höhe des Bildes aus <b>Image_Small_URL</b>.
         </td>        
     </tr>
     <tr>
@@ -238,7 +238,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
         </td>
         <td>
             <b>Pflichtfeld</b><br>
-            <b>Inhalt:</b> URL zu dem Bild gemäß der Formateinstellungen <b>Bild</b>. Variantenbilder werden vor Artikelbildern priorisiert. 
+            URL zu dem Bild gemäß der Formateinstellungen <b>Bild</b>. Variantenbilder werden vor Artikelbildern priorisiert. 
         </td>        
     </tr>
     <tr>
@@ -248,7 +248,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
         <td>
             <b>Pflichtfeld</b><br>
             <b>Beschränkung:</b> max 11 Zeichen<br>
-            <b>Inhalt:</b> Breite des Bildes aus <b>Image_Large_WIDTH</b>.
+            Breite des Bildes aus <b>Image_Large_WIDTH</b>.
         </td>        
     </tr>
     <tr>
@@ -258,7 +258,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
         <td>
             <b>Pflichtfeld</b><br>
             <b>Beschränkung:</b> max 11 Zeichen<br>
-            <b>Inhalt:</b> Höhe des Bildes aus <b>Image_Large_WIDTH</b>.
+            Höhe des Bildes aus <b>Image_Large_WIDTH</b>.
         </td>        
     </tr>
     <tr>
@@ -266,7 +266,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
             Merchant Product Category
         </td>
         <td>
-            <b>Inhalt:</b> Der <b>Kategoriepfad der Standardkategorie</b> für den in den Formateinstellungen definierten <b>Mandanten</b>.
+            Der <b>Kategoriepfad der Standardkategorie</b> für den in den Formateinstellungen definierten <b>Mandanten</b>.
         </td>        
     </tr>
     <tr>
@@ -274,7 +274,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
             Keywords
         </td>
         <td>
-            <b>Inhalt:</b> Die Meta-Keywords des Artikels aus dem <b>Tab: Texte</b>.
+            Die Meta-Keywords des Artikels aus dem <b>Tab: Texte</b>.
         </td>        
     </tr>
     <tr>
@@ -283,7 +283,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
         </td>
         <td>
             <b>Pflichtfeld</b><br>
-            <b>Inhalt:</b> Entsprechend der Formateinstellung <b>Vorschautext</b>.
+            Entsprechend der Formateinstellung <b>Vorschautext</b>.
         </td>        
     </tr>
     <tr>
@@ -291,7 +291,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
             Product_Description_Long
         </td>
         <td>
-            <b>Inhalt:</b> Entsprechend der Formateinstellung <b>Beschreibung</b>.
+            Entsprechend der Formateinstellung <b>Beschreibung</b>.
         </td>        
     </tr>
     <tr>
@@ -299,7 +299,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
             Last_Update
         </td>
         <td>
-            <b>Inhalt:</b> Datum der letzten Aktualisierung der Variante.
+            Datum der letzten Aktualisierung der Variante.
         </td>        
     </tr>
     <tr>
@@ -308,7 +308,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
         </td>
         <td>
             <b>Pflichtfeld</b><br>
-            <b>Inhalt:</b> Entsprechend der Formateinstellung <b>Versandkosten</b>.
+            Entsprechend der Formateinstellung <b>Versandkosten</b>.
         </td>        
     </tr>
     <tr>
@@ -317,7 +317,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
         </td>
         <td>
             <b>Pflichtfeld</b><br>
-            <b>Inhalt:</b> Der Name der Artikelverfügbarkeit der Variante oder die Übersetzung gemäß der Formateinstellung <b>Artikelverfügbarkeit überschreiben</b>.
+            Der Name der Artikelverfügbarkeit der Variante oder die Übersetzung gemäß der Formateinstellung <b>Artikelverfügbarkeit überschreiben</b>.
         </td>        
     </tr>
     <tr>
@@ -325,7 +325,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
             Unit_Price
         </td>
         <td>
-            <b>Inhalt:</b> Die <b>Grundpreisinformation</b> im Format "Preis / Einheit". (Beispiel: 10,00 EUR / Kilogramm)
+            Die <b>Grundpreisinformation</b> im Format "Preis / Einheit". (Beispiel: 10,00 EUR / Kilogramm)
         </td>        
     </tr>
 </table>

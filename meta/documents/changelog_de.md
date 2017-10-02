@@ -1,9 +1,9 @@
 # Release Notes für Elastic Export Belboon.de
 
-## v1.1.2 (2017-09-28)
+## v1.1.2 (2017-10-02)
 
 ### Behoben
-- Es wurde ein Fehler behoben, bei dem Bilder Probleme verursacht wurden.
+- Es wurde ein Fehler behoben, bei dem die Bilder nicht korrekt geladen wurden.
 
 ## v1.1.1 (2017-08-04)
 
