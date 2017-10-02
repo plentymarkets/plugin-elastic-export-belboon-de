@@ -3,7 +3,7 @@
 ## v1.1.2 (2017-10-02)
 
 ### Fixed
-- An issue was fixed which caused the images not to be loaded correctly.
+- An issue was fixed which caused images to not be correctly exported.
 
 ## v1.1.1 (2017-08-04)
 
