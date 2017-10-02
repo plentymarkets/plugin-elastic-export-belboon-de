@@ -120,9 +120,9 @@ The following table lists details for settings, format settings and recommended 
             Merchant_ProductNumber
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Limitation:</b> only Numbers allowed, max. 20 characters<br>
-            <b>Content:</b> The variation id of the variation.
+            The variation id of the variation.
         </td>        
     </tr>
     <tr>
@@ -130,7 +130,7 @@ The following table lists details for settings, format settings and recommended 
             EAN_Code
         </td>
         <td>
-            <b>Content:</b> According to the format setting <b>Barcode</b>.
+            According to the format setting <b>Barcode</b>.
         </td>        
     </tr>
     <tr>
@@ -138,8 +138,8 @@ The following table lists details for settings, format settings and recommended 
             Product_Title
         </td>
         <td>
-            <b>Required</b><br>>
-            <b>Content:</b> According to the format setting <b>item name</b>.
+            <b>Required</b><br>
+            According to the format setting <b>item name</b>.
         </td>        
     </tr>
     <tr>
@@ -147,7 +147,7 @@ The following table lists details for settings, format settings and recommended 
             Brand
         </td>
         <td>
-            <b>Content:</b> The <b>name of the manufacturer</b> of the item. The <b>external name</b> within <b>Settings » Items » Manufacturer</b> will be preferred if existing.
+            The <b>name of the manufacturer</b> of the item. The <b>external name</b> within <b>Settings » Items » Manufacturer</b> will be preferred if existing.
         </td>        
     </tr>
     <tr>
@@ -155,9 +155,9 @@ The following table lists details for settings, format settings and recommended 
             Price
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Limitation:</b> max 999.999,99 <br>
-            <b>Content:</b> The <b>sales price</b> of the variation.
+            The <b>sales price</b> of the variation.
         </td>        
     </tr>
     <tr>
@@ -166,7 +166,7 @@ The following table lists details for settings, format settings and recommended 
         </td>
         <td>
             <b>Limitation:</b> max 999.999,99 <br>
-            <b>Content:</b> <b>Content:</b> The <b>sales price</b> of the price type <b>RRP</b> of the variation.
+            The <b>sales price</b> of the price type <b>RRP</b> of the variation.
         </td>        
     </tr>
     <tr>
@@ -174,8 +174,8 @@ The following table lists details for settings, format settings and recommended 
             Currency
         </td>
         <td>
-            <b>Required</b><br>>
-            <b>Content:</b> The ISO code of the <b>currency</b> of the price.
+            <b>Required</b><br>
+            The ISO code of the <b>currency</b> of the price.
         </td>        
     </tr>
     <tr>
@@ -183,7 +183,7 @@ The following table lists details for settings, format settings and recommended 
             Valid_From
         </td>
         <td>
-            <b>Content:</b> The <b>Release date</b> of the variation. 
+            The <b>Release date</b> of the variation. 
         </td>        
     </tr>
     <tr>
@@ -191,7 +191,7 @@ The following table lists details for settings, format settings and recommended 
             Valid_To
         </td>
         <td>
-            <b>Content:</b> The date from the setting <b>Available until</b> of the variation.
+            The date from the setting <b>Available until</b> of the variation.
         </td>        
     </tr>
     <tr>
@@ -199,8 +199,8 @@ The following table lists details for settings, format settings and recommended 
             DeepLink_URL
         </td>
         <td>
-            <b>Required</b><br>>
-            <b>Content:</b> The <b>URL path</b> of the item depending on the chosen <b>client</b> in the format settings.
+            <b>Required</b><br>
+            The <b>URL path</b> of the item depending on the chosen <b>client</b> in the format settings.
         </td>        
     </tr>
     <tr>
@@ -208,8 +208,8 @@ The following table lists details for settings, format settings and recommended 
             Image_Small_URL
         </td>
         <td>
-            <b>Required</b><br>>
-            <b>Content:</b> URL of the image in preview size according to the format setting <b>image</b>. Variation images are prioritized over item images.
+            <b>Required</b><br>
+            URL of the image in preview size according to the format setting <b>image</b>. Variation images are prioritized over item images.
         </td>        
     </tr>
     <tr>
@@ -217,9 +217,9 @@ The following table lists details for settings, format settings and recommended 
             Image_Small_WIDTH
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Limitation:</b> max 11 characters<br>
-            <b>Content:</b> The width of the image from <b>Image_Small_URL</b>.
+            The width of the image from <b>Image_Small_URL</b>.
         </td>        
     </tr>
     <tr>
@@ -227,9 +227,9 @@ The following table lists details for settings, format settings and recommended 
             Image_Small_HEIGHT
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Limitation:</b> max 11 characters<br>
-            <b>Content:</b> The height of the image from <b>Image_Small_URL</b>.
+            The height of the image from <b>Image_Small_URL</b>.
         </td>        
     </tr>
     <tr>
@@ -237,8 +237,8 @@ The following table lists details for settings, format settings and recommended 
             Image_Large_URL
         </td>
         <td>
-            <b>Required</b><br>>
-            <b>Content:</b> URL of the image according to the format setting <b>image</b>. Variation images are prioritized over item images.
+            <b>Required</b><br>
+            URL of the image according to the format setting <b>image</b>. Variation images are prioritized over item images.
         </td>        
     </tr>
     <tr>
@@ -246,9 +246,9 @@ The following table lists details for settings, format settings and recommended 
             Image_Large_WIDTH
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Limitation:</b> max 11 characters<br>
-            <b>Content:</b> The width of the image from <b>Image_Large_WIDTH</b>.
+            The width of the image from <b>Image_Large_WIDTH</b>.
         </td>        
     </tr>
     <tr>
@@ -256,9 +256,9 @@ The following table lists details for settings, format settings and recommended 
             Image_Large_HEIGHT
         </td>
         <td>
-            <b>Required</b><br>>
+            <b>Required</b><br>
             <b>Limitation:</b> max 11 characters<br>
-            <b>Content:</b> The height of the image from <b>Image_Large_WIDTH</b>.
+            The height of the image from <b>Image_Large_WIDTH</b>.
         </td>        
     </tr>
     <tr>
@@ -266,7 +266,7 @@ The following table lists details for settings, format settings and recommended 
             Merchant Product Category
         </td>
         <td>
-            <b>Content:</b> The <b>category path of the default category</b> for the defined client in the format settings.
+            The <b>category path of the default category</b> for the defined client in the format settings.
         </td>        
     </tr>
     <tr>
@@ -274,8 +274,8 @@ The following table lists details for settings, format settings and recommended 
             Keywords
         </td>
         <td>
-            <b>Required</b><br>>
-            <b>Content:</b> Meta keywords of the item from <b>Tab: Texts</b>.
+            <b>Required</b><br>
+            Meta keywords of the item from <b>Tab: Texts</b>.
         </td>        
     </tr>
     <tr>
@@ -283,8 +283,8 @@ The following table lists details for settings, format settings and recommended 
             Product_Description_Short
         </td>
         <td>
-            <b>Required</b><br>>
-            <b>Content:</b> According to the format setting <b>Preview text</b>.
+            <b>Required</b><br>
+            According to the format setting <b>Preview text</b>.
         </td>        
     </tr>
     <tr>
@@ -292,7 +292,7 @@ The following table lists details for settings, format settings and recommended 
             Product_Description_Long
         </td>
         <td>
-            <b>Content:</b> According to the format setting <b>Description</b>.
+            According to the format setting <b>Description</b>.
         </td>        
     </tr>
     <tr>
@@ -300,7 +300,7 @@ The following table lists details for settings, format settings and recommended 
             Last_Update
         </td>
         <td>
-            <b>Content:</b> Date of the last update of the variation.
+            Date of the last update of the variation.
         </td>        
     </tr>
     <tr>
@@ -308,8 +308,8 @@ The following table lists details for settings, format settings and recommended 
             Shipping
         </td>
         <td>
-            <b>Required</b><br>>
-            <b>Content:</b> According to the format setting <b>shipping costs</b>.
+            <b>Required</b><br>
+            According to the format setting <b>shipping costs</b>.
         </td>        
     </tr>
     <tr>
@@ -317,8 +317,8 @@ The following table lists details for settings, format settings and recommended 
             Availability
         </td>
         <td>
-            <b>Required</b><br>>
-            <b>Content:</b> Translation according to the format setting <b>Override item availability</b>.
+            <b>Required</b><br>
+            Translation according to the format setting <b>Override item availability</b>.
         </td>        
     </tr>
     <tr>
@@ -326,7 +326,7 @@ The following table lists details for settings, format settings and recommended 
             Unit_Price
         </td>
         <td>
-            <b>Content:</b> The <b>base price information</b> in the format "price / unit". (Example: 10,00 EUR / kilogram)
+            The <b>base price information</b> in the format "price / unit". (Example: 10,00 EUR / kilogram)
         </td>        
     </tr>
 </table>

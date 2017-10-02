@@ -83,7 +83,6 @@ class BelboonDE extends ResultFields
          * @var KeyMutator
          */
         $keyMutator = pluginApp(KeyMutator::class);
-
         if($keyMutator instanceof KeyMutator)
         {
             $keyMutator->setKeyList($this->getKeyList());
