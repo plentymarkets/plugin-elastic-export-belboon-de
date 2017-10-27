@@ -83,6 +83,8 @@ class BelboonDE extends CSVPluginGenerator
 
         if($elasticSearch instanceof VariationElasticSearchScrollRepositoryContract)
         {
+        	$elasticSearch->setNumberOfDocumentsPerShard(250);
+        	
             // Initiate the counter for the variations limit
             $limitReached = false;
             $limit = 0;
@@ -296,23 +298,19 @@ class BelboonDE extends CSVPluginGenerator
 		{
 			if(strlen($imageData['urlPreview']) > 0)
 			{
-				$result = getimagesize($imageData['urlPreview']);
-
 				$imageInformation['preview'] = [
 					'url' => $imageData['urlPreview'],
-					'width' => (isset($result[0]) && (int)$result[0]) ? (int)$result[0] : '',
-					'height' => (isset($result[1]) && (int)$result[1]) ? (int)$result[1] : '',
+					'width' => isset($imageData['width']) ? $imageData['width'] : 0,
+					'height' => isset($imageData['height']) ? $imageData['width'] : 0,
 				];
 			}
 
 			if(strlen($imageData['url']) > 0)
 			{
-				$result = getimagesize($imageData['url']);
-
 				$imageInformation['normal'] = [
 					'url' => $imageData['url'],
-					'width' => (isset($result[0]) && (int)$result[0]) ? (int)$result[0] : '',
-					'height' => (isset($result[1]) && (int)$result[1]) ? (int)$result[1] : '',
+					'width' => isset($imageData['width']) ? $imageData['width'] : 0,
+					'height' => isset($imageData['height']) ? $imageData['width'] : 0,
 				];
 			}
 		}
