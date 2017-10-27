@@ -2,6 +2,7 @@
 
 namespace ElasticExportBelboonDE\ResultField;
 
+use ElasticExport\DataProvider\ResultFieldDataProvider;
 use Plenty\Modules\DataExchange\Contracts\ResultFields;
 use Plenty\Modules\Helper\Services\ArrayHelper;
 use Plenty\Modules\Item\Search\Mutators\BarcodeMutator;
@@ -9,6 +10,7 @@ use Plenty\Modules\Item\Search\Mutators\DefaultCategoryMutator;
 use Plenty\Modules\Item\Search\Mutators\ImageMutator;
 use Plenty\Modules\Cloud\ElasticSearch\Lib\Source\Mutator\BuiltIn\LanguageMutator;
 use Plenty\Modules\Item\Search\Mutators\KeyMutator;
+use Plenty\Plugin\Log\Loggable;
 
 /**
  * Class BelboonDE
@@ -16,6 +18,8 @@ use Plenty\Modules\Item\Search\Mutators\KeyMutator;
  */
 class BelboonDE extends ResultFields
 {
+	use Loggable;
+	
     /**
      * @var ArrayHelper
      */
@@ -42,32 +46,6 @@ class BelboonDE extends ResultFields
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
 
         $reference = $settings->get('referrerId');
-
-        $itemDescriptionFields = ['texts.urlPath', 'texts.lang', 'texts.keywords'];
-
-        $itemDescriptionFields[] = ($settings->get('nameId')) ? 'texts.name' . $settings->get('nameId') : 'texts.name1';
-
-        if($settings->get('descriptionType') == 'itemShortDescription'
-            || $settings->get('previewTextType') == 'itemShortDescription')
-        {
-            $itemDescriptionFields[] = 'texts.shortDescription';
-        }
-
-        if($settings->get('descriptionType') == 'itemDescription'
-            || $settings->get('descriptionType') == 'itemDescriptionAndTechnicalData'
-            || $settings->get('previewTextType') == 'itemDescription'
-            || $settings->get('previewTextType') == 'itemDescriptionAndTechnicalData')
-        {
-            $itemDescriptionFields[] = 'texts.description';
-        }
-
-        if($settings->get('descriptionType') == 'technicalData'
-            || $settings->get('descriptionType') == 'itemDescriptionAndTechnicalData'
-            || $settings->get('previewTextType') == 'technicalData'
-            || $settings->get('previewTextType') == 'itemDescriptionAndTechnicalData')
-        {
-            $itemDescriptionFields[] = 'texts.technicalData';
-        }
 
         //Mutator
         /**
@@ -112,73 +90,37 @@ class BelboonDE extends ResultFields
             $barcodeMutator->addMarket($reference);
         }
 
-        //Fields
-        $fields = [
-            [
-                // Item
-                'item.id',
-                'item.manufacturer.id',
+		$resultFieldHelper = pluginApp(ResultFieldDataProvider::class);
+		if($resultFieldHelper instanceof ResultFieldDataProvider)
+		{
+			$resultFields = $resultFieldHelper->getResultFields($settings);
+		}
 
-                // Variation
-                'id',
-                'variation.availability.id',
-                'variation.stockLimitation',
-                'variation.releasedAt',
-                'variation.availableUntil',
-                'variation.updatedAt',
+		if(isset($resultFields) && is_array($resultFields) && count($resultFields))
+		{
+			$fields[0] = $resultFields;
+			$fields[1] = [
+				$languageMutator,
+				$defaultCategoryMutator,
+				$barcodeMutator,
+				$keyMutator
+			];
 
-				// Unit
-				'unit.id',
-				'unit.content',
-
-                // Images
-                'images.all.urlMiddle',
-                'images.all.urlPreview',
-                'images.all.urlSecondPreview',
-                'images.all.url',
-                'images.all.path',
-                'images.all.position',
-
-                'images.item.urlMiddle',
-                'images.item.urlPreview',
-                'images.item.urlSecondPreview',
-                'images.item.url',
-                'images.item.path',
-                'images.item.position',
-
-                'images.variation.urlMiddle',
-                'images.variation.urlPreview',
-                'images.variation.urlSecondPreview',
-                'images.variation.url',
-                'images.variation.path',
-                'images.variation.position',
-
-                // DefaultCategories
-                'defaultCategories.id',
-
-                // Barcodes
-                'barcodes.code',
-                'barcodes.type',
-            ],
-
-            [
-                $languageMutator,
-                $defaultCategoryMutator,
-                $barcodeMutator,
-                $keyMutator,
-            ],
-        ];
-
+			if($reference != -1)
+			{
+				$fields[1][] = $imageMutator;
+			}
+		}
+		else
+		{
+			$this->getLogger(__METHOD__)->critical('ElasticExportBelboonDE::log.resultFieldError');
+			exit();
+		}
+		
         // Get the associated images if reference is selected
         if($reference != -1)
         {
             $fields[1][] = $imageMutator;
-        }
-
-        foreach($itemDescriptionFields as $itemDescriptionField)
-        {
-            // Texts
-            $fields[0][] = $itemDescriptionField;
         }
 
         return $fields;
