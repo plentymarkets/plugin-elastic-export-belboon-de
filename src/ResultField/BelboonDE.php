@@ -116,12 +116,6 @@ class BelboonDE extends ResultFields
 			$this->getLogger(__METHOD__)->critical('ElasticExportBelboonDE::log.resultFieldError');
 			exit();
 		}
-		
-        // Get the associated images if reference is selected
-        if($reference != -1)
-        {
-            $fields[1][] = $imageMutator;
-        }
 
         return $fields;
     }
