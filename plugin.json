@@ -8,8 +8,8 @@
   "price": 0.00,
   "description": "This plugin adds the format Belboon.de to the Elastic Export.",
   "shortDescription": {
-    "de": "Das Plugin ElasticExportBelboonDE fügt das Datenformat BelboonDE-Plugin zum Elastischen Export hinzu.",
-    "en": "This plugin adds the format BelboonDE-Plugin to the Elastic Export."
+    "de": "Die Integration des Datenformats belboon-Plugin ermöglicht die Artikeldatenübertragung zum Affiliate-Dienstleister belboon über den elastischen Export.",
+    "en": "The integration of the data format belboon-Plugin enables the transfer of item data to the affiliate service provider belboon via the elastic export."
   },
   "categories": [
     "3523"
