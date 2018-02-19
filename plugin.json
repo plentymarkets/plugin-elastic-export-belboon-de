@@ -2,14 +2,14 @@
   "name": "ElasticExportBelboonDE",
   "namespace": "ElasticExportBelboonDE",
   "type": "export",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "license": "GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007",
   "pluginIcon": "icon_plugin_md.png",
   "price": 0.00,
-  "description": "This plugin adds the format Belboon.de to the Elastic Export.",
+  "description": "This plugin adds the format BelboonDE-Plugin to the Elastic Export.",
   "shortDescription": {
-    "de": "Die Integration des Datenformats belboon-Plugin ermöglicht die Artikeldatenübertragung zum Affiliate-Dienstleister belboon über den elastischen Export.",
-    "en": "The integration of the data format belboon-Plugin enables the transfer of item data to the affiliate service provider belboon via the elastic export."
+    "de": "Die Integration des Datenformats BelboonDE-Plugin ermöglicht die Artikeldatenübertragung zum Affiliate-Dienstleister belboon über den elastischen Export.",
+    "en": "The integration of the data format BelboonDE-Plugin enables the transfer of item data to the affiliate service provider belboon via the elastic export."
   },
   "categories": [
     "3523"

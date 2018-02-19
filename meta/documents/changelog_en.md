@@ -1,4 +1,4 @@
-# Release Notes for Elastic Export Belboon.de
+# Release Notes for Elastic Export belboon.com
 
 ## v1.1.4 (2018-2-16)
 
