@@ -5,6 +5,7 @@ namespace ElasticExportBelboonDE\Generator;
 use ElasticExport\Helper\ElasticExportCoreHelper;
 use ElasticExport\Helper\ElasticExportPriceHelper;
 use ElasticExport\Helper\ElasticExportStockHelper;
+use ElasticExport\Services\FiltrationService;
 use Plenty\Modules\DataExchange\Contracts\CSVPluginGenerator;
 use Plenty\Modules\Helper\Services\ArrayHelper;
 use Plenty\Modules\Helper\Models\KeyValue;
@@ -50,6 +51,11 @@ class BelboonDE extends CSVPluginGenerator
 	private $shippingCostCache = [];
 
     /**
+     * @var FiltrationService
+     */
+    private $filtrationService;
+	
+    /**
      * BelboonDE constructor.
      *
      * @param ArrayHelper $arrayHelper
@@ -70,12 +76,11 @@ class BelboonDE extends CSVPluginGenerator
     {
     	// Initialize helper classes
         $this->elasticExportHelper = pluginApp(ElasticExportCoreHelper::class);
-
         $this->elasticExportPriceHelper = pluginApp(ElasticExportPriceHelper::class);
-
         $this->elasticExportStockHelper = pluginApp(ElasticExportStockHelper::class);
 
 		$settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
+		$this->filtrationService = pluginApp(FiltrationService::class, [$settings, $filter]);
 
 		$this->setDelimiter(self::DELIMITER);
 
@@ -123,7 +128,7 @@ class BelboonDE extends CSVPluginGenerator
                         }
 
                         // If filtered by stock is set and stock is negative, then skip the variation
-                        if ($this->elasticExportStockHelper->isFilteredByStock($variation, $filter) === true)
+                        if ($this->filtrationService->filter($variation))
                         {
                             continue;
                         }

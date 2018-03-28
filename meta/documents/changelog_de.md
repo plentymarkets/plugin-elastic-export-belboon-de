@@ -1,5 +1,11 @@
 # Release Notes für Elastic Export belboon.com
 
+## v1.1.5 (2018-03-28)
+
+### Geändert
+- Die Klasse FiltrationService übernimmt die Filtrierung der Varianten.
+- Vorschaubilder aktualisiert.
+
 ## v1.1.4 (2018-02-16)
 
 ### Geändert
