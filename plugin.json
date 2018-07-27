@@ -15,7 +15,7 @@
   "marketplaceName": {
     "de": "belboon.com",
     "en": "belboon.com"
-  }
+  },
   "author": "plentymarkets GmbH",
   "require": ["ElasticExport"],
   "authorIcon": "icon_author_xs.png",
