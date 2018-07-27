@@ -1,5 +1,10 @@
 # Release Notes für Elastic Export belboon.com
 
+## v1.1.7 (2018-07-26)
+
+### Geändert
+- Dem User Guide wurden weitere Informationen zur Einrichtung des Plugins hinzugefügt.
+
 ## v1.1.6 (2018-04-30)
 
 ### Geändert
