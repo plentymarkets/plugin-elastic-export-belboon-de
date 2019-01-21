@@ -11,7 +11,7 @@
     "de": "Die Integration des Datenformats BelboonDE-Plugin ermöglicht die Artikeldatenübertragung zum Affiliate-Dienstleister belboon über den elastischen Export.",
     "en": "The integration of the data format BelboonDE-Plugin enables the transfer of item data to the affiliate service provider belboon via the elastic export."
   },
-  "categories": ["3523"],
+  "categories": ["3880"],
   "marketplaceName": {
     "de": "belboon.com",
     "en": "belboon.com"
