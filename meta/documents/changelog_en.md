@@ -1,5 +1,10 @@
 # Release Notes for Elastic Export belboon.com
 
+## v1.1.9 (2018-10-09)
+
+### Changed
+- The user guide was updated (changed form of address, corrected broken links).
+
 ## v1.1.8 (2018-01-21)
 
 ### Changed
