@@ -17,7 +17,9 @@
     "en": "belboon.com"
   },
   "author": "plentysystems AG",
-  "require": ["ElasticExport"],
+  "require": {
+    "ElasticExport": ">= 1.6.5"
+  },
   "authorIcon": "icon_author_xs.png",
   "serviceProvider": "ElasticExportBelboonDE\\ElasticExportBelboonDEServiceProvider"
 }
