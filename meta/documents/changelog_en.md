@@ -1,5 +1,11 @@
 # Release Notes for Elastic Export belboon.com
 
+## v1.1.10 (2020-09-17)
+
+### Changed
+- Plugin information updated.
+- Moved user guide to plentymarkets manual.
+
 ## v1.1.9 (2018-10-09)
 
 ### Changed
@@ -29,7 +35,7 @@
 ## v1.1.4 (2018-02-16)
 
 ### Changed
-- Updated plugin short describtion.
+- Updated plugin short description.
 
 ## v1.1.3 (2017-10-27)
 
@@ -46,7 +52,7 @@
 ### Fixed
 - An issue was fixed which caused the images to not be sorted by position.
 
-## v1.1.0 (2017-08-01) 
+## v1.1.0 (2017-08-01)
 
 ### Fixed
 - The column **Keywords** will now be correctly exported.
@@ -85,6 +91,6 @@
 - Changed plugin icons.
 
 ## v1.0.0 (2017-03-07)
- 
+
 ### Added
 - Added initial plugin files
