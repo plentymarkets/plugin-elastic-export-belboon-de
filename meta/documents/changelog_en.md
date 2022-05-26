@@ -1,5 +1,10 @@
 # Release Notes for Elastic Export belboon.com
 
+## v1.1.11 (2022-05-26)
+
+### Changed
+- UPDATE - Additional updates to ensure compatibility with PHP 8.
+
 ## v1.1.10 (2020-09-17)
 
 ### Changed

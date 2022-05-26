@@ -105,7 +105,7 @@ class BelboonDE extends CSVPluginGenerator
                 // Get the data from Elastic Search
                 $resultList = $elasticSearch->execute();
 
-                if(count($resultList['error']) > 0)
+                if(count($resultList['error'] ?? []) > 0)
                 {
                     $this->getLogger(__METHOD__)->error('ElasticExportBelboonDE::logs.occurredElasticSearchErrors', [
                         'Error message' => $resultList['error'],
@@ -114,7 +114,7 @@ class BelboonDE extends CSVPluginGenerator
                     break;
                 }
 
-                if(is_array($resultList['documents']) && count($resultList['documents']) > 0)
+                if(is_array($resultList['documents']) && count($resultList['documents'] ?? []) > 0)
                 {
                     $previousItemId = null;
 
